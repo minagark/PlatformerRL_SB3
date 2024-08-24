@@ -72,8 +72,7 @@ class PlatformerEnv(gym.Env):
             pygame.display.update()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    pygame.display.quit()
-                    pygame.quit()
+                    self.close()
 
             self.clock.tick(self.metadata["render_fps"])
         else:
@@ -81,9 +80,9 @@ class PlatformerEnv(gym.Env):
                 np.array(pygame.surfarray.pixels3d(canvas)), axes=(1,0,2)
             )
 
-    def render(self):
-        if self.render_mode == "human":
-            clock = pygame.time.Clock()
+    # def render(self):
+    #     if self.render_mode == "human":
+    #         clock = pygame.time.Clock()
 
     def close(self):
         if self.screen is not None:
