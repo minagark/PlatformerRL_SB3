@@ -5,7 +5,7 @@ import numpy as np
 from stable_baselines3 import A2C, PPO, DQN
 import os
 
-env = PlatformerEnv(None) 
+env = PlatformerEnv(render_mode="human") 
 env.reset()
 
 model_name = "DQN"
@@ -14,7 +14,7 @@ model_path = f"{models_dir}/130000.zip"
 
 model = DQN.load(model_path, env=env)
 
-episodes = 10
+episodes = 1
 for ep in range(episodes):
     obs, _ = env.reset()
     done = False
