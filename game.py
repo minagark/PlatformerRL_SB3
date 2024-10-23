@@ -24,9 +24,10 @@ class Game():
     def ML_step(self, action):
         """
         Input: action {0,1,2,3}
-        Output: observation; shape (11,2) consisting of 
-        position, velocity, acceleration of player and relative positions of 8 closest platforms.   
+        Output: entire screen
         """
+        # Output: observation; shape (11,2) consisting of 
+        # position, velocity, acceleration of player and relative positions of 8 closest platforms.   
         self.step_number += 1
         if action == 0:
             self.player.pressing_down = False
@@ -61,12 +62,13 @@ class Game():
         closest_platforms = sorted(self.platforms[:-1], key = dist_from_here)
         self.considered_platforms = closest_platforms[:8]
 
+        # agent_pos = np.array([self.player.x, self.player.y], dtype=np.float32)
+        # agent_vel = np.array([self.player.vx, self.player.vy], dtype=np.float32)
+        # platform_info = np.array([(platform.x - self.player.x, platform.y - self.player.y) 
+        #                             for platform in self.considered_platforms], dtype=np.float32).reshape((-1,))
+        # observation = {"agent_pos": agent_pos, "agent_vel": agent_vel, "platform_info": platform_info}
 
-        agent_pos = np.array([self.player.x, self.player.y], dtype=np.float32)
-        agent_vel = np.array([self.player.vx, self.player.vy], dtype=np.float32)
-        platform_info = np.array([(platform.x - self.player.x, platform.y - self.player.y) 
-                                    for platform in self.considered_platforms], dtype=np.float32).reshape((-1,))
-        observation = {"agent_pos": agent_pos, "agent_vel": agent_vel, "platform_info": platform_info}
+        observation = pygame.surfarray.array3d(self.get_canvas()).astype(np.uint8).transpose((2,0,1))
         
         done = not self.running
 

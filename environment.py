@@ -13,19 +13,20 @@ class PlatformerEnv(gym.Env):
         self.action_space = spaces.Discrete(4)
         # self.observation_space = spaces.Box(low=-np.inf, high=np.inf, shape=(11,2), dtype=np.float32)
 
-        self.observation_space = spaces.Dict(
-            {
-                "agent_pos": spaces.Box(low=-10_000, high=10_000, shape=(2,), dtype=np.float32),
-                "agent_vel": spaces.Box(low=-50, high=50, shape=(2,), dtype=np.float32),
+        # self.observation_space = spaces.Dict(
+        #     {
+        #         "agent_pos": spaces.Box(low=-10_000, high=10_000, shape=(2,), dtype=np.float32),
+        #         "agent_vel": spaces.Box(low=-50, high=50, shape=(2,), dtype=np.float32),
                 
-                # Position of eight closest platforms (increase this??)
-                "platform_info": spaces.Box(low=-500, high=500, shape=(16,), dtype=np.float32) 
-            }
-        )
+        #         # Position of eight closest platforms (increase this??)
+        #         "platform_info": spaces.Box(low=-500, high=500, shape=(16,), dtype=np.float32) 
+        #     }
+        # )
 
         self.episode_ended = False
         self.WIDTH = 800
         self.HEIGHT = 600
+        self.observation_space = spaces.Box(low=0, high=255, shape=(3, self.WIDTH, self.HEIGHT), dtype=np.uint8)
 
         self.Game = Game(self.WIDTH, self.HEIGHT, 60, 0.5, False)
 
@@ -79,10 +80,6 @@ class PlatformerEnv(gym.Env):
             return np.transpose(
                 np.array(pygame.surfarray.pixels3d(canvas)), axes=(1,0,2)
             )
-
-    # def render(self):
-    #     if self.render_mode == "human":
-    #         clock = pygame.time.Clock()
 
     def close(self):
         if self.screen is not None:

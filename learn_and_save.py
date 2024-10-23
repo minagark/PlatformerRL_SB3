@@ -5,7 +5,7 @@ import numpy as np
 from stable_baselines3 import A2C, PPO, DQN
 import os
 
-model_name = "DQN"
+model_name = "DQN-CNN-20241022-1"
 models_dir = f"models/{model_name}"
 log_dir = "logs"
 os.makedirs(models_dir, exist_ok=True)
@@ -15,7 +15,7 @@ env = PlatformerEnv(None)
 env.reset()
 
 # HYPERPARAMETERS
-model = DQN("MultiInputPolicy", env, verbose=1, tensorboard_log=log_dir)
+model = DQN("CnnPolicy", env, verbose=1, tensorboard_log=log_dir)
 NUM_TIMESTEPS = 10_000
 TIMESTEPS_MULTIPLIER = 20
 for i in range(1, TIMESTEPS_MULTIPLIER+1):
@@ -24,7 +24,7 @@ for i in range(1, TIMESTEPS_MULTIPLIER+1):
 
 env.close()
 
-
+# TODO: Way too much memory taken up by replay buffer. Do pre-processing
 
 
 # rewards = []
