@@ -7,7 +7,7 @@ import pygame
 class PlatformerEnv(gym.Env):
     """Custom Environment that follows gym interface."""
 
-    metadata = {"render_modes": ["human"], "render_fps": 120}
+    metadata = {"render_modes": ["human"], "render_fps": 24}
 
     def __init__(self, render_mode=None):
         self.action_space = spaces.Discrete(4)
@@ -15,11 +15,10 @@ class PlatformerEnv(gym.Env):
 
         self.observation_space = spaces.Dict(
             {
-                "agent_pos": spaces.Box(low=-10_000, high=10_000, shape=(2,), dtype=np.float32),
+                "agent_x": spaces.Box(low=-1000, high=1000, shape=(1,), dtype=np.float32),
                 "agent_vel": spaces.Box(low=-50, high=50, shape=(2,), dtype=np.float32),
-                
-                # Position of eight closest platforms (increase this??)
-                "platform_info": spaces.Box(low=-500, high=500, shape=(16,), dtype=np.float32) 
+                "on_ground": spaces.Discrete(n=2, start=0),
+                "platform_info": spaces.Box(low=-500, high=500, shape=(20,), dtype=np.float32) 
             }
         )
 
@@ -48,7 +47,7 @@ class PlatformerEnv(gym.Env):
 
     def step(self, action):
         if action in [0,1,2,3]:
-            observation, reward, terminated = self.Game.ML_step_nx(action, 1)
+            observation, reward, terminated = self.Game.ML_step_nx(action, 5)
         else:
             raise ValueError("Action can only be 0, 1, 2, or 3 (nothing, move left, move right, or jump).")
 
@@ -72,13 +71,10 @@ class PlatformerEnv(gym.Env):
             pygame.display.update()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    self.close()
+                    pygame.display.quit()
+                    pygame.quit()
 
             self.clock.tick(self.metadata["render_fps"])
-        else:
-            return np.transpose(
-                np.array(pygame.surfarray.pixels3d(canvas)), axes=(1,0,2)
-            )
 
     # def render(self):
     #     if self.render_mode == "human":

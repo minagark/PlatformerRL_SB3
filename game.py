@@ -59,22 +59,33 @@ class Game():
             return math.sqrt((platform.x - self.player.x) ** 2 + (platform.y - self.player.y) ** 2)
 
         closest_platforms = sorted(self.platforms[:-1], key = dist_from_here)
-        self.considered_platforms = closest_platforms[:8]
+        self.considered_platforms = closest_platforms[:10]
 
+        # self.considered_platforms = []
+        # for plat in self.platforms[:-1]:
+        #     if dist_from_here(plat) < 50:
+        #         self.considered_platforms.append(plat)
+        # self.considered_platforms = sorted(self.considered_platforms, key=dist_from_here)
+        
 
-        agent_pos = np.array([self.player.x, self.player.y], dtype=np.float32)
+        agent_x = np.array([self.player.x,], dtype=np.float32)
         agent_vel = np.array([self.player.vx, self.player.vy], dtype=np.float32)
+        on_ground = int(self.player.on_ground)
         platform_info = np.array([(platform.x - self.player.x, platform.y - self.player.y) 
                                     for platform in self.considered_platforms], dtype=np.float32).reshape((-1,))
-        observation = {"agent_pos": agent_pos, "agent_vel": agent_vel, "platform_info": platform_info}
+        observation = {"agent_x": agent_x, 
+                       "agent_vel": agent_vel, 
+                       "on_ground": on_ground, 
+                       "platform_info": platform_info}
         
         done = not self.running
 
         if self.player.on_ground or done:
-            reward = -(self.y_level - self.old_y_level) # we want negative y_level since going up is negative y
+            # we want negative y_level since going up is negative y
+            reward = -(self.y_level - self.old_y_level)
         else:
             reward = 0.0
-        
+
         return observation, reward, done
 
     def ML_step_nx(self, action, n):
@@ -97,6 +108,8 @@ class Game():
         canvas.fill((100,100,100))
         for platform in self.platforms:
             self.draw_entity(platform, canvas)
+            if not self.human_mode and platform in self.considered_platforms:
+                pygame.draw.rect(canvas, (0,0,0), (platform.x, platform.y - self.y_level, platform.width, platform.height))
         self.draw_entity(self.player, canvas)
         return canvas
 
