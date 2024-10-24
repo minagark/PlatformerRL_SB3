@@ -6,7 +6,8 @@ from stable_baselines3 import A2C, PPO, DQN
 from stable_baselines3.common.callbacks import CheckpointCallback
 import os
 
-model_name = "DQN-8Plats-5Steps-onGround-v1"
+# note that some of the 8 plats ones require 10 plats instead
+model_name = "DQN-10Plats-5Steps-onGround-startlow-v1"
 models_dir = f"models/{model_name}"
 log_dir = "logs"
 os.makedirs(models_dir, exist_ok=True)
@@ -16,9 +17,9 @@ env = PlatformerEnv(None)
 env.reset()
 
 # HYPERPARAMETERS
-model = DQN("MultiInputPolicy", env, verbose=0, tensorboard_log=log_dir, exploration_fraction=0.5, buffer_size=50_000)
-NUM_TIMESTEPS = 5_000
-TIMESTEPS_MULTIPLIER = 40
+model = DQN("MultiInputPolicy", env, verbose=0, tensorboard_log=log_dir, exploration_fraction=0.5, exploration_final_eps=0.1, buffer_size=200_000)
+NUM_TIMESTEPS = 50_000
+TIMESTEPS_MULTIPLIER = 20
 
 checkpoint_callback = CheckpointCallback(
     save_freq=NUM_TIMESTEPS,
@@ -34,26 +35,4 @@ model.learn(
     callback=checkpoint_callback,
 )
 
-# for i in range(1, TIMESTEPS_MULTIPLIER+1):
-#     model.learn(NUM_TIMESTEPS, reset_num_timesteps=False, tb_log_name=model_name)
-#     model.save(f"{models_dir}/{NUM_TIMESTEPS * i}")
-
 env.close()
-
-
-# rewards = []
-# eval_episodes = 5
-# show_env = PlatformerEnv("human")
-# for episode in range(eval_episodes):
-#     obs, _ = show_env.reset()
-#     done = False
-#     while not done:
-#         # show_env.render()
-#         best_action, next_state = model.predict(observation=obs, deterministic=True)
-#         obs, reward, done, trunc, info = show_env.step(best_action)
-#         rewards.append(reward)
-# show_env.close()
-
-
-# plt.plot(rewards)
-# plt.show()

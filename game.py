@@ -9,7 +9,7 @@ class Game():
         self.WIDTH = WIDTH
         self.HEIGHT = HEIGHT
         self.platforms = []
-        self.player = Player(WIDTH/2, HEIGHT/2, 15, 15, (0, 0, 255), gravity, 8)
+        self.player = Player(self.WIDTH/2, self.HEIGHT - 55, 15, 15, (0, 0, 255), gravity, 8)
         self.FRAME_RATE = FRAME_RATE
         self.y_level = 0
         self.old_y_level = 0
@@ -223,6 +223,7 @@ class Game():
 
     def populate_platforms(self):
         #platform_options = [["green", "normal"], ["blue", "bouncy"], ["purple", "sticky"], ["gray", "hard"]]
+        self.platforms.append(Platform(self.WIDTH/2, self.HEIGHT - 50, 50, 5, (0,255,0), "normal"))
         for y_offset in range(0, self.HEIGHT * 10, self.HEIGHT):
             # Human game version will have tapering platforms higher up, and different types of platforms. 
             #
