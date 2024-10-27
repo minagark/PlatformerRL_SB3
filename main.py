@@ -14,7 +14,7 @@ if __name__ == "__main__":
     clock = pygame.time.Clock()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     while Game1.running:
-        clock.tick(Game1.FRAME_RATE)
+        clock.tick(Game1.FRAME_RATE) 
         Game1.handle_input()
         Game1.update_everything()
         Game1.draw_everything(screen)
