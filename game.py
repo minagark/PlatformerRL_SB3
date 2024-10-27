@@ -9,7 +9,7 @@ class Game():
         self.WIDTH = WIDTH
         self.HEIGHT = HEIGHT
         self.platforms = []
-        self.player = Player(self.WIDTH/2, self.HEIGHT - 55, 15, 15, (0, 0, 255), gravity, 8)
+        self.player = Player(self.WIDTH/2, self.HEIGHT - 105, 15, 15, (0, 0, 255), gravity, 8)
         self.FRAME_RATE = FRAME_RATE
         self.y_level = 0
         self.old_y_level = 0
@@ -61,6 +61,9 @@ class Game():
         closest_platforms = sorted(self.platforms[:-1], key = dist_from_here)
         self.considered_platforms = closest_platforms[:10]
 
+
+        ### The following doesn't work because it gives a variable-sized observation;
+        ### but there are some tricks to make it work 
         # self.considered_platforms = []
         # for plat in self.platforms[:-1]:
         #     if dist_from_here(plat) < 50:
@@ -223,10 +226,10 @@ class Game():
 
     def populate_platforms(self):
         #platform_options = [["green", "normal"], ["blue", "bouncy"], ["purple", "sticky"], ["gray", "hard"]]
-        self.platforms.append(Platform(self.WIDTH/2, self.HEIGHT - 50, 50, 5, (0,255,0), "normal"))
+        self.platforms.append(Platform(self.WIDTH/2, self.HEIGHT - 100, 50, 5, (0,255,0), "normal"))
         for y_offset in range(0, self.HEIGHT * 10, self.HEIGHT):
             # Human game version will have tapering platforms higher up, and different types of platforms. 
-            #
+
             vertical_density = 12
             horizontal_density = 6
 

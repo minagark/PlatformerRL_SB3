@@ -6,7 +6,6 @@ from stable_baselines3 import A2C, PPO, DQN
 from stable_baselines3.common.callbacks import CheckpointCallback
 import os
 
-# note that some of the 8 plats ones require 10 plats instead
 model_name = "DQN-10Plats-5Steps-onGround-startlow-v1"
 models_dir = f"models/{model_name}"
 log_dir = "logs"
