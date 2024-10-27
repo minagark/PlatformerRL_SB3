@@ -18,7 +18,7 @@ Load a previously saved policy to train it again, with potentially different hyp
 
 Play the game yourself! Use arrow keys, WASD, spacebar to jump, or any combination of them.
 
-## Future improvements/projects
+## Potential future improvements/projects
 
 * Make the game go on forever rather than having a limit but slowly increase the speed of the rising lava until it becomes impossible to escape. Train the agent on this version of the game.
 * The original Javascript version of the game included different types of platforms (ones that restricted your jumps, or bounced you like a trampoline, or blocked you from going through from below). It also made the game harder as you went up, making the platforms sparser and sparser. Train the agent on this harder and more complex game.
