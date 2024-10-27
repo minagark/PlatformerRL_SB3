@@ -18,6 +18,10 @@ Load a previously saved policy to train it again, with potentially different hyp
 
 Play the game yourself! Use arrow keys, WASD, spacebar to jump, or any combination of them.
 
+### Example agent
+This is a video of a DQN agent I trained for a total of 1.8 million steps.
+https://github.com/minagark/PlatformerRL_SB3/blob/main/Example%20Agent%20-%201.8m%20Steps%20Trained.mov
+
 ## Potential future improvements/projects
 
 * Improve the current model on the current environment; it still has some kinks to work out.
