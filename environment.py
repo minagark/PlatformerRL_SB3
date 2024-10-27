@@ -7,7 +7,7 @@ import pygame
 class PlatformerEnv(gym.Env):
     """Custom Environment that follows gym interface."""
 
-    metadata = {"render_modes": ["human"], "render_fps": 24}
+    metadata = {"render_modes": ["human"], "render_fps": 12}
 
     def __init__(self, render_mode=None):
         self.action_space = spaces.Discrete(4)
