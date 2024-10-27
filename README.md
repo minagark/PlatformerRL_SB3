@@ -21,6 +21,7 @@ Play the game yourself! Use arrow keys, WASD, spacebar to jump, or any combinati
 ### Example agent
 This is a video of a DQN agent I trained for a total of 1.8 million steps.
 https://github.com/minagark/PlatformerRL_SB3/blob/main/Example%20Agent%20-%201.8m%20Steps%20Trained.mov
+Eventually, it gets stuck and doesn't know where to go; perhaps more training is needed, and/or tweaked hyperparamters.
 
 ## Potential future improvements/projects
 
