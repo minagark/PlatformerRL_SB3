@@ -21,9 +21,12 @@ Play the game yourself! Use arrow keys, WASD, spacebar to jump, or any combinati
 ### Example agent
 This is a video of a DQN agent I trained for a total of 1.8 million steps.
 https://github.com/minagark/PlatformerRL_SB3/blob/main/Example%20Agent%20-%201.8m%20Steps%20Trained.mov
-Eventually, it gets stuck and doesn't know where to go; perhaps more training is needed, and/or tweaked hyperparamters.
 
-## Potential future improvements/projects
+### In progress:
+
+In certain situations, the agent gets stuck and doesn't know where to go. Additional training and hyperparameter optimization in progress.
+
+## Future improvements/projects
 
 * Improve the current model on the current environment; it still has some kinks to work out.
 * Make the game go on forever rather than having a limit but slowly increase the speed of the rising lava until it becomes impossible to escape. Train the agent on this version of the game.
